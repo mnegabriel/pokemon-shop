@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 //import PokemonUnit from './PokemonUnit'
-//import { getPackPokemon } from '../services/pokemon'
 
 function PokemonList () {
 
@@ -13,24 +12,12 @@ function PokemonList () {
 
 
     useEffect( () => {
-
-        // async function fetchData() {
-        //     let response = await getPackPokemon(apiUrl)
-        //     console.log(response)
-        //     const [ next, previous ] = response
-        //     setNextUrl(next)
-        //     setPrevUrl(previous)
-        //     setLoading(false)
-        // }
-        // fetchData()
-        // fetch(apiUrl).then(res => console.log(res))
         
      axios.get(apiUrl)
         .then( response => {
-            console.log(response)
-             const { data, data:{results, next, previous}} = response
-             console.log(data)
-             console.log(results)
+            
+             const { data:{results, next, previous}} = response
+            
              setNextUrl(next)
              setPrevUrl(previous)
              capturarCada(results)
@@ -39,14 +26,13 @@ function PokemonList () {
             
     }, [apiUrl]) 
 
-    function capturarCada(data) {
-        const _packPokemon = data.map(  async pokemon => {
-            let pokemonInfo =  axios.get(pokemon.url)//.then(res => res)
+    const capturarCada = async (data) => {
+        const _packPokemon = await Promise.all(data.map( async pokemon => {
+            let pokemonInfo =  axios.get(pokemon.url).then(res => res.data)
             return pokemonInfo
-            })
+            }))
         
-        const usablePack = _packPokemon
-        console.log(usablePack)
+                
         setPokemonData(_packPokemon)
         setLoading(false)
     }
