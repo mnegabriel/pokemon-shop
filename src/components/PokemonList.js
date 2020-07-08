@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-//import PokemonUnit from './PokemonUnit'
+import PokemonUnit from './PokemonUnit'
 
 function PokemonList () {
 
@@ -51,7 +51,7 @@ function PokemonList () {
 
     return (
         <>  
-            {/* { pokemonData.map(pokemon => <PokemonUnit key={pokemon.name} pokeProps={pokemon} />)}   */}
+            { pokemonData.map( pokemon => <PokemonUnit key={pokemon.name} pokeProps={pokemon} /> ) }
 
             { loading ? <h1>Carregando...</h1> : <h1>Chegou</h1> }        
             
