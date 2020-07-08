@@ -1,51 +1,73 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import PokemonUnit from './PokemonUnit'
+//import PokemonUnit from './PokemonUnit'
+//import { getPackPokemon } from '../services/pokemon'
 
 function PokemonList () {
 
-    const [ apiResponse, setApiResponse ] = useState([])
+    const [ nextUrl, setNextUrl ] = useState('')
+    const [ prevUrl, setPrevUrl ] = useState('')
+    const [ loading, setLoading ] = useState(true)
     const [ pokemonData, setPokemonData ] = useState([])
-    const [ apiURL, setApiURL ] = useState('https://pokeapi.co/api/v2/pokemon')  
+    const [ apiUrl, setApiUrl ] = useState('https://pokeapi.co/api/v2/pokemon')  
 
 
     useEffect( () => {
+
+        // async function fetchData() {
+        //     let response = await getPackPokemon(apiUrl)
+        //     console.log(response)
+        //     const [ next, previous ] = response
+        //     setNextUrl(next)
+        //     setPrevUrl(previous)
+        //     setLoading(false)
+        // }
+        // fetchData()
+        // fetch(apiUrl).then(res => console.log(res))
         
-        axios.get(apiURL)
-            .then( response => {
-                const { data, data:{results}} = response
-                console.log(data)
-                console.log(results)
-                setApiResponse(data)
-                results.forEach( pokemon => {
-                    axios.get(pokemon.url)
-                        .then( rexpoxta => {
-                            setPokemonData([
-                                ...pokemonData,
-                                rexpoxta.data
-                            ])
-                            console.log(rexpoxta)
-                        } )
-                })
-            } )            
+     axios.get(apiUrl)
+        .then( response => {
+            console.log(response)
+             const { data, data:{results, next, previous}} = response
+             console.log(data)
+             console.log(results)
+             setNextUrl(next)
+             setPrevUrl(previous)
+             capturarCada(results)
+        })
+                     
             
-    }, [apiURL]) 
+    }, [apiUrl]) 
+
+    function capturarCada(data) {
+        const _packPokemon = data.map(  async pokemon => {
+            let pokemonInfo =  axios.get(pokemon.url)//.then(res => res)
+            return pokemonInfo
+            })
+        
+        const usablePack = _packPokemon
+        console.log(usablePack)
+        setPokemonData(_packPokemon)
+        setLoading(false)
+    }
     
     function handlePrev(){
-        if(apiResponse.previous != null ){
-            setApiURL(apiResponse.previous)
-            console.log(apiResponse.previous)
+        if(prevUrl != null ){
+            setApiUrl(prevUrl)
+            console.log(prevUrl)
         }
     }
     
     function handleNext(){
-        setApiURL(apiResponse.next)
-        console.log(apiResponse.next)
+        setApiUrl(nextUrl)
+        console.log(nextUrl)
     }
 
     return (
         <>  
-            { pokemonData.map(pokemon => <PokemonUnit key={pokemon.name} pokeProps={pokemon} />)}          
+            {/* { pokemonData.map(pokemon => <PokemonUnit key={pokemon.name} pokeProps={pokemon} />)}   */}
+
+            { loading ? <h1>Carregando...</h1> : <h1>Chegou</h1> }        
             
             <button onClick={handlePrev}>Prev</button>
             <button onClick={handleNext}>Next</button>  
