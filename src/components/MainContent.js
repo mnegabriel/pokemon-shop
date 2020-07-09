@@ -7,17 +7,17 @@ function MainContent() {
     const [ cart, setCart ] = useState([])  
 
     function handleAddFunction(itemData) {
-        console.log("botão rodando função")
 
-        const holder = cart.filter( item => item.id === cart.id)
+        const holder = cart.filter( item => item.id === cart.id)        
 
         if (holder.length > 0) {
             return console.log('já existe')
         }
         else{
+            console.log(cart)
              return setCart([
                 ...cart,
-                holder
+                itemData
             ])
         }
     }
