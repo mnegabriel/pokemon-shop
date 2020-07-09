@@ -7,11 +7,11 @@ function MainContent() {
     
     return (
         <>
-            <main>
+            <main className='list'>
                 <h1>Choose your pokemon:</h1>
                 <PokemonList />              
             </main>
-            <aside>
+            <aside className='cart'>
                 <Cart />
             </aside>
         </>

@@ -39,21 +39,25 @@ function PokemonList () {
     
     function handlePrev(){
         if(prevUrl != null ){
+            setLoading(true)
             setApiUrl(prevUrl)
             console.log(prevUrl)
         }
     }
     
     function handleNext(){
+        setLoading(true)
         setApiUrl(nextUrl)
         console.log(nextUrl)
     }
 
     return (
         <>  
-            { pokemonData.map( pokemon => <PokemonUnit key={pokemon.name} pokeProps={pokemon} /> ) }
+            <div className="deck">
+                { loading ? <h1>Carregando...</h1> : pokemonData.map( pokemon => <PokemonUnit key={pokemon.name} pokeProps={pokemon} /> ) }
+            </div>
 
-            { loading ? <h1>Carregando...</h1> : <h1>Chegou</h1> }        
+                  
             
             <button onClick={handlePrev}>Prev</button>
             <button onClick={handleNext}>Next</button>  
