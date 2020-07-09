@@ -7,18 +7,26 @@ function MainContent() {
     const [ cart, setCart ] = useState([])  
 
     function handleAddFunction(itemData) {
+        const pokemonInCart = cart.filter( item => item.id === itemData.id)
 
-        const holder = cart.filter( item => item.id === cart.id)        
+        console.log(itemData)
+        console.log('kkkkkkkkkkkkkkkkkkkkkkk')
+        console.log(pokemonInCart)
 
-        if (holder.length > 0) {
-            return console.log('já existe')
-        }
-        else{
+
+        if (pokemonInCart.length > 0) {
+            const cartSemEste = cart.filter( test => test.id !== pokemonInCart[0].id)
+            const updatedPokemon = { ...pokemonInCart[0] }
+
+            console.log('já existe')
+            console.log(cartSemEste)
+            console.log(updatedPokemon)
+            console.log('já existe')
+            setCart([ ...cartSemEste, updatedPokemon ])
+        }else{
             console.log(cart)
-             return setCart([
-                ...cart,
-                itemData
-            ])
+            console.log('oiaaaaaaaaaaaa')
+            setCart([ ...cart, itemData ])
         }
     }
     
