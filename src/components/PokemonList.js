@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import PokemonUnit from './PokemonUnit'
 
-function PokemonList () {
+function PokemonList (props) {
 
     const [ nextUrl, setNextUrl ] = useState('')
     const [ prevUrl, setPrevUrl ] = useState('')
     const [ loading, setLoading ] = useState(true)
     const [ pokemonData, setPokemonData ] = useState([])
     const [ apiUrl, setApiUrl ] = useState('https://pokeapi.co/api/v2/pokemon')  
-
-
+    
     useEffect( () => {
         
      axios.get(apiUrl)
@@ -30,8 +29,7 @@ function PokemonList () {
         const _packPokemon = await Promise.all(data.map( async pokemon => {
             let pokemonInfo =  axios.get(pokemon.url).then(res => res.data)
             return pokemonInfo
-            }))
-        
+            }))        
                 
         setPokemonData(_packPokemon)
         setLoading(false)
@@ -51,16 +49,32 @@ function PokemonList () {
         console.log(nextUrl)
     }
 
+    ////////////////////////////////////////////////
+    // Data transfer
+    ////////////////////////////////////////////////
+    const { dataForCart } = props
+    function escalaPokemon(pokemonData) {
+        dataForCart(pokemonData)
+    }
+    ////////////////////////////////////////////////
+
     return (
         <>  
-            <div className="deck">
-                { loading ? <h1>Carregando...</h1> : pokemonData.map( pokemon => <PokemonUnit key={pokemon.name} pokeProps={pokemon} /> ) }
+
+            <div className="pagination">
+                <button onClick={handlePrev}>Prev</button>
+                <button onClick={handleNext}>Next</button>  
             </div>
 
+            <div className="deck">
+                { loading ? <h1>Carregando...</h1> : pokemonData.map( pokemon => <PokemonUnit key={pokemon.id} pokeProps={pokemon} grabPokeInfo={escalaPokemon}/> ) }
+            </div>
+
+            <div className="pagination">
+                <button onClick={handlePrev}>Prev</button>
+                <button onClick={handleNext}>Next</button>  
+            </div>
                   
-            
-            <button onClick={handlePrev}>Prev</button>
-            <button onClick={handleNext}>Next</button>  
         </>
     )
 }

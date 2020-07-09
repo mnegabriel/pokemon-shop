@@ -3,6 +3,7 @@
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  text-decoration: none;
 }
 
 header {
@@ -35,10 +36,26 @@ header ul li {
 
 .list {
   background-color: blueviolet;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
-.list > .deck {
-  width: 70%;
+.list > * {
+  margin-top: 10px;
+}
+
+.list .pagination {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.list .deck {
   background: #a887de;
   display: -ms-grid;
   display: grid;
@@ -74,5 +91,19 @@ header ul li {
   border-radius: 5px;
   margin-bottom: 10px;
   width: 70%;
+}
+
+footer {
+  text-align: center;
+  padding: 10px 0;
+}
+
+@media (min-width: 800px) {
+  .middle {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 3fr 2fr;
+        grid-template-columns: 3fr 2fr;
+  }
 }
 /*# sourceMappingURL=sass.css.map */

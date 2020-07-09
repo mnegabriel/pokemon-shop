@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    text-decoration: none;
 }
 
 header{
@@ -20,15 +21,23 @@ header{
     }
 }
 
+
+
 .list {
     background-color: blueviolet;
-}
-
-.list > .deck {
-    width: 70%;
+    display: flex;
+    flex-direction: column;
+    & > * {
+        margin-top: 10px;
+    }
+    & .pagination {
+        align-self: center;
+    }
+    & .deck {
     background: rgb(168, 135, 222);
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    }
 }
 
 .card {
@@ -48,5 +57,17 @@ header{
       border-radius: 5px;
       margin-bottom: 10px;  
       width: 70%;
+    }
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+}
+
+@media(min-width: 800px) {
+    .middle {        
+        display: grid;
+        grid-template-columns: 3fr 2fr;
     }
 }
