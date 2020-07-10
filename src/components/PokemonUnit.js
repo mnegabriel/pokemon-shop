@@ -23,7 +23,7 @@ function PokemonUnit(props) {
             <p>R${custo},00</p>
             <h5>{formatedName}</h5>
 
-            <button onClick={ () => grabPokeInfo({id, name, image, custo})}> Add to cart </button>
+            <button onClick={ () => grabPokeInfo( {id, name, image, custo, units: 1} ) }> Add to cart </button>
 
         </div>
     )

@@ -4,9 +4,10 @@ import Footer from './components/Footer'
 import MainContent from './components/MainContent'
 
 function App() {
-
+  // Price database for the shop
   const [ prices, setPrices ] = useState([])
 
+  // creation of the price array
   useEffect(() => {
     let temp = []
     for (let i=0; i<964; i++){

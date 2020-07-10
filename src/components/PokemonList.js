@@ -17,7 +17,8 @@ function PokemonList (props) {
     //-----------------------
     
     useEffect( () => {
-          
+        
+        // first GET request, getting pokemon URLs and pagination
         axios.get(apiUrl)
         .then( response => {            
             const { data:{results, next, previous}} = response
@@ -27,6 +28,8 @@ function PokemonList (props) {
             capturarCada(results)
         }) 
         
+
+        // 'Second' GET request, going through the objects and using axios in each
         const capturarCada = async (data) => {
             const _packPokemon = await Promise.all(data.map( async pokemon => {
                 let pokemonInfo =  axios.get(pokemon.url).then(res => res.data)
@@ -35,31 +38,9 @@ function PokemonList (props) {
                         
             setPokemonData(_packPokemon)
             setLoading(false)                
-        }
+        }        
         
-        // function addPrice(instance){
-        //     console.log(instance)
-        //     console.log(dbPrices)
-        //     console.log('aaaaaaaaaacccccccccccccccccccccccccccccccccccccc')
-        //     const seraEin = instance.forEach( pokemon => {
-        //         let table = dbPrices.filter( preco => preco.id === pokemon.id )
-                
-        //         console.log(pokemon.id)
-        //         console.log(table)
-        //         return { ...pokemon, table}
-    
-        //     })        
-            
-        //     console.log(seraEin)
-        //     console.log('aaaaaaaaaaaaa')
-        //     console.log(dbPrices)
-        //     return 
-        // }
-
-
     }, [apiUrl]) 
-    
-
     
     function handlePrev(){
         if(prevUrl != null ){
@@ -74,11 +55,11 @@ function PokemonList (props) {
         setApiUrl(nextUrl)
         console.log(nextUrl)
     }
+    
     // END List Logic
     
-           
     //-----------------------
-    // Data transfer
+    // Data transfer to from PokemonList.js to MainContent.js
     //-----------------------
     
     const { dataForCart } = props
