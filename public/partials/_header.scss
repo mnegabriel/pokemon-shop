@@ -1,0 +1,15 @@
+header{
+    background-color: bisque;
+    display: flex;
+    padding: 8px 10px;
+    justify-content: flex-end;
+    & ul {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        list-style: none;
+        & li {
+            margin-right: 30px;
+        }
+    }
+}

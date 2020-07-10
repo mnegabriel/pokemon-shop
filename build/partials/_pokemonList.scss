@@ -1,0 +1,16 @@
+.list {
+    background-color: blueviolet;
+    display: flex;
+    flex-direction: column;
+    & > * {
+        margin-top: 10px;
+    }
+    & .pagination {
+        align-self: center;
+    }
+    & .deck {
+    background: rgb(168, 135, 222);
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    }
+}

@@ -17,9 +17,9 @@ function CartItem(props) {
 
     return (
         <div className='cartItem'>
-            <img src={image} alt='' />
-            <p>R${custo * units},00</p>
-            <p>x {units}</p>
+            <img src={image} alt='' className='itemImg'/>
+            <p className='itemPrice'>R${custo * units},00</p>
+            <p className='itemUnits'>x {units}</p>
             <button onClick={ () => removePokemon( {id, name, image, custo, units: 1} ) }>x</button>
         </div>
     )

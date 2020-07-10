@@ -22,18 +22,20 @@ function Cart(props) {
 
 
     return (
-        <>
-                <h1>Carrinho</h1>
-            {
-                cartItems.length > 0
+        <div className="cart">
+            <h1>Carrinho</h1>
+
+            <div className='cartBox'>
+                {
+                    cartItems.length > 0
                     ? pokemonCarrinho
                     : <h2>carrinho vazio</h2>    
-            }
+                }
+            </div>
 
             <h3>Total da compra:  R$ {Total},00</h3>
 
-
-        </>
+        </div>
     )
 }
 

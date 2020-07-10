@@ -63,8 +63,8 @@ function PokemonList (props) {
     //-----------------------
     
     const { dataForCart } = props
-    function escalaPokemon(pokemonData) {
-        dataForCart(pokemonData)
+    function escalaPokemon(dados) {
+        dataForCart(dados)
     }
     //-----------------------
 

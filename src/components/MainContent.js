@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-import PokemonList from './PokemonList'
-import Cart from './Cart'
+import PokemonList from './list/PokemonList'
+import Cart from './cart/Cart'
 
 function MainContent(props) {
     // pulling prices from App.js  
@@ -53,7 +53,7 @@ function MainContent(props) {
                 <h1>Choose your pokemon:</h1>
                 <PokemonList dataForCart={handleAddFunction} dbPrices={prices}/>              
             </div>
-            <div className='cart'>
+            <div className='cartSection'>
                 <Cart cartItems={cart} cartItemButton={handleSubFunction}/>
             </div>
         </div>

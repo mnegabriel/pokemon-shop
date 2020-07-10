@@ -1,0 +1,6 @@
+@media(min-width: 800px) {
+    .middle {        
+        display: grid;
+        grid-template-columns: 70% 30%;
+    }
+}
