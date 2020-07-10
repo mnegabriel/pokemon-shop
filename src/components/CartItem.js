@@ -4,31 +4,15 @@ import React from 'react'
 function CartItem(props) {
     const { 
         pokeCart: {
-            name,
-            image
+            image,
+            custo
         }
     } = props
 
-    // const image = front_default 
-
-    // const [ pokeInfo, setPokeInfo ] = useState([])
-    
-    // useEffect( (props) => {
-    //     const { pokeCart } = props
-
-    //     inicio(pokeCart)
-    // }, [])
-
-    // function inicio(teste) {
-    //     setPokeInfo(teste)
-    //     console.log(teste)
-    // }
-
     return (
-        <div>
+        <div className='cartItem'>
             <img src={image} alt='' />
-            <h6>{name}</h6>
-            <p>price</p>
+            <p>{custo}</p>
             <button>x</button>
         </div>
     )

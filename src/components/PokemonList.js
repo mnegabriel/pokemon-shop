@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import PokemonUnit from './PokemonUnit'
 
-function PokemonList (props) {
+function PokemonList (props) {    
+    
+    const { dbPrices } = props 
 
     const [ nextUrl, setNextUrl ] = useState('')
     const [ prevUrl, setPrevUrl ] = useState('')
@@ -14,7 +16,8 @@ function PokemonList (props) {
     // List Logic
     //-----------------------
     
-    useEffect( () => {        
+    useEffect( () => {
+          
         axios.get(apiUrl)
         .then( response => {            
             const { data:{results, next, previous}} = response
@@ -22,18 +25,41 @@ function PokemonList (props) {
             setNextUrl(next)
             setPrevUrl(previous)
             capturarCada(results)
-        })        
+        }) 
+        
+        const capturarCada = async (data) => {
+            const _packPokemon = await Promise.all(data.map( async pokemon => {
+                let pokemonInfo =  axios.get(pokemon.url).then(res => res.data)
+                return pokemonInfo
+            }))      
+                        
+            setPokemonData(_packPokemon)
+            setLoading(false)                
+        }
+        
+        // function addPrice(instance){
+        //     console.log(instance)
+        //     console.log(dbPrices)
+        //     console.log('aaaaaaaaaacccccccccccccccccccccccccccccccccccccc')
+        //     const seraEin = instance.forEach( pokemon => {
+        //         let table = dbPrices.filter( preco => preco.id === pokemon.id )
+                
+        //         console.log(pokemon.id)
+        //         console.log(table)
+        //         return { ...pokemon, table}
+    
+        //     })        
+            
+        //     console.log(seraEin)
+        //     console.log('aaaaaaaaaaaaa')
+        //     console.log(dbPrices)
+        //     return 
+        // }
+
+
     }, [apiUrl]) 
     
-    const capturarCada = async (data) => {
-        const _packPokemon = await Promise.all(data.map( async pokemon => {
-            let pokemonInfo =  axios.get(pokemon.url).then(res => res.data)
-            return pokemonInfo
-        }))      
-        
-        setPokemonData(_packPokemon)
-        setLoading(false)                
-    }
+
     
     function handlePrev(){
         if(prevUrl != null ){
@@ -70,7 +96,14 @@ function PokemonList (props) {
             </div>
 
             <div className="deck">
-                { loading ? <h1>Carregando...</h1> : pokemonData.map( pokemon => <PokemonUnit key={pokemon.id} pokeProps={pokemon} grabPokeInfo={escalaPokemon}/> ) }
+                { 
+                    loading 
+                        ? <h1>Carregando...</h1> 
+                        : pokemonData.map( pokemon => {
+                            let custo = dbPrices[pokemon.id].price
+                            return <PokemonUnit key={pokemon.id} pokeProps={pokemon} custo={custo} grabPokeInfo={escalaPokemon}/> 
+                        }) 
+                }
             </div>
 
             <div className="pagination">

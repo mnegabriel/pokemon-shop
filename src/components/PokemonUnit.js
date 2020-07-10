@@ -6,10 +6,10 @@ function PokemonUnit(props) {
             id, 
             name, 
             sprites:{front_default}}, 
-        grabPokeInfo
+        grabPokeInfo,
+        custo
     } = props
 
-    const price = ''
     const formatedName = name[0].toUpperCase() + name.slice(1);
     const image = front_default
 
@@ -19,11 +19,11 @@ function PokemonUnit(props) {
         <div className='card'>
 
             <img src={image} alt='' />
-            <p>{id}</p>
-            <p>R${price},00</p>
+            <p>PokeIndex: {id}</p>
+            <p>R${custo},00</p>
             <h5>{formatedName}</h5>
 
-            <button onClick={ () => grabPokeInfo({id, name, image})}> Add to cart </button>
+            <button onClick={ () => grabPokeInfo({id, name, image, custo})}> Add to cart </button>
 
         </div>
     )
